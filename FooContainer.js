@@ -15,6 +15,6 @@ const mapStateToProps = () => ({
 
 const addID = Component => props => <Component {...props} id={'not-an-id'} />;
 
-const FooContainer = _.flowRight(addID, connect(mapStateToProps, null))(Foo);
+const FooContainer = _.flowRight(connect(mapStateToProps, null), addID)(Foo);
 
 export default FooContainer;
