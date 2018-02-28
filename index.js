@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import FooContainer from './FooContainer';
+import FooContainer from './src/Foo';
 
 const FooBar = () => <FooContainer />;
 
