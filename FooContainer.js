@@ -9,15 +9,11 @@ type Props = {
 };
 const Foo = (props: Props) => <div className={props.name} key={props.id} />;
 
-function mapStateToProps() {
-  return {
-    name: 'Vitor',
-  };
-}
+const mapStateToProps = () => ({
+  name: true,
+});
 
-function addID(Component) {
-  return props => <Component {...props} id={'not-an-id'} />;
-}
+const addID = Component => props => <Component {...props} id={'not-an-id'} />;
 
 const FooContainer = _.flowRight(addID, connect(mapStateToProps, null))(Foo);
 
