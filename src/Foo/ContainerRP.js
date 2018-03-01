@@ -1,29 +1,31 @@
 // @flow
-import React from 'react';
+import React from "react";
 
-import Connect from '../Connect';
-import Foo from './Foo';
+import Connect from "../Connect";
+import Foo from "./Foo";
 
 const mapStateToProps = state => ({
   name: 42
 });
 
-const WithId = ({children}) => children({id: 'not-an-id'});
-
-const FooContainer = () => (
+const WithName = ({ children }) => (
   <Connect mapStateToProps={mapStateToProps}>
-    {({name}) => (
-      <WithId>
-        {({id}) => (
-          // Expect two flow errors here:
-          //   - name is number not a string
-          //   - id is a string not a number
-          <Foo name={name} id={id} />
-        )}
-      </WithId>
-    )}
+    {({ name }) => children({ name })}
   </Connect>
 );
 
-export default FooContainer;
+const WithId = ({ children }) => children({ id: "not-an-id" });
 
+const WithFooData = ({children}) => (
+  <WithName>
+    {({ name }) => <WithId>{({ id }) => children({ name, id })}</WithId>}
+  </WithName>
+);
+
+const FooContainer = () => (
+  <WithFooData>
+    {({name, id}) => <Foo name={name} id={id} />}
+  </WithFooData>
+);
+
+export default FooContainer;
